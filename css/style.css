@@ -1,0 +1,238 @@
+/* 
+  ！SMACCSSで書いてみる 
+*/
+
+@charset "UTF-8";
+/************************************************************************
+ *
+ * Reset
+ *
+************************************************************************/
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+html {
+  -moz-text-size-adjust: none;
+  -webkit-text-size-adjust: none;
+  text-size-adjust: none;
+}
+body,
+h1,
+h2,
+h3,
+h4,
+p,
+figure,
+blockquote,
+dl,
+dd {
+  margin: 0;
+}
+ul,
+ol {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+body {
+  min-height: 100vh;
+  line-height: 1.5;
+}
+h1,
+h2,
+h3,
+h4,
+button,
+input,
+label {
+  line-height: 1.1;
+}
+a:not([class]) {
+  color: currentColor;
+}
+img,
+picture {
+  max-width: 100%;
+  display: block;
+}
+input,
+button,
+textarea,
+select {
+  font: inherit;
+}
+textarea:not([rows]) {
+  min-height: 10em;
+}
+:target {
+  scroll-margin-block: 5ex;
+}
+em {
+  font-style: normal;
+}
+a{
+  text-decoration: none;
+}
+
+
+/************************************************************************
+ *
+ * Base（子ページ含めた共通のベーススタイル）
+ *
+ ************************************************************************/
+:root {
+  --base-width: 375; /* 基準幅 */
+  --max-width: 640; /* 最大幅 */
+  --base-font-size: 10; /* 基準フォントサイズ (10px) */
+  /* 最大横幅サイズ時の最大フォントサイズ */
+  --max-font-size: calc((var(--base-font-size) / var(--base-width)) * var(--max-width) * 1px);
+}
+html {
+  /** 以下指定により「1rem = 横幅が --base-width 時の 10px」となる */
+  font-size: min(calc((var(--base-font-size) / var(--base-width)) * 100vw), var(--max-font-size));
+}
+body{
+	background-color: #d2deeb;
+	margin: 0;
+  font-family: "Zen Maru Gothic", sans-serif;
+  font-weight: 500;
+}
+main{
+	width: 100%;
+	margin: 0 auto;
+	background-color: #fff;
+	padding: 2rem;
+	font-size: clamp(10px, 1.5625vw, 10px);
+  font-size: 1rem;
+}
+h1{
+	margin: 0;
+}
+@media screen and (min-width:640px) {
+main{
+	width: 640px;
+}
+}
+
+
+/************************************************************************
+ *
+ * Utility（子ページ含めた共通の汎用スタイル）
+ *
+************************************************************************/
+.u-mb--1em {
+  margin-bottom: 1em !important;
+}
+.u-mb--2em {
+  margin-bottom: 2em !important;
+}
+.u-mb--3em {
+  margin-bottom: 3em !important;
+}
+.u-mb--4em {
+  margin-bottom: 4em !important;
+}
+.u-mb--5em {
+  margin-bottom: 5em !important;
+}
+
+/************************************************************************
+ *
+ * Overwrite（サイト共通スタイル（style.css）の上書き）
+ *
+ ************************************************************************/
+
+
+
+
+
+/************************************************************************
+ *
+ * Layout（子ページ含めた共通のレイアウトスタイル）
+ *
+ ************************************************************************/
+.l-page-wrap {
+  width: 100%;
+	--base-width: 375; /* 基準幅 */
+  --max-width: 640; /* 最大幅 */
+  --base-font-size: 10; /* 基準フォントサイズ (10px) */
+  /* 最大横幅サイズ時の最大フォントサイズ */
+  --max-font-size: calc((var(--base-font-size) / var(--base-width)) * var(--max-width) * 1px);
+	/** 以下指定で、横幅が --base-width 時に 1rem が 10pxとなる */
+  font-size: min(calc((var(--base-font-size) / var(--base-width)) * 100vw), var(--max-font-size));
+  scroll-behavior: smooth;
+	font-family: 'Hiragino Kaku Gothic ProN', sans-serif;
+}
+.l-page-inner {
+  width: 100%;
+  max-width: var(--max-width) * 1px;
+  margin: 0 auto;
+}
+.l-page-inner-2 {
+  width: 100%;
+  max-width: 960px;
+  margin: 0 auto;
+}
+
+/************************************************************************
+ *
+ * JS（子ページ含めた共通のJS用スタイル）
+ *
+ ************************************************************************/
+
+
+/************************************************************************
+ *
+ * Page（ページ固有のスタイル）
+ *
+************************************************************************/
+/************************************
+ * XXページ
+ ************************************/
+
+/* main */
+.btn-area{
+  width: 100%;
+	margin: 1.5rem auto;  
+}
+button{
+  appearance: none;       /* ブラウザ独自の見た目をリセット */
+  border: none;
+  background: none;
+  font: inherit;
+  cursor: pointer;
+  padding: 0;
+
+  border: 1px solid #ccc;
+  border-radius: 50px;
+  padding: 3% 5%;
+  font-size: 1.3rem;
+  width: 100%;
+  color: #48484a;
+}
+button:hover{
+  background-color: #48484a;
+  border: 1px solid #48484a;
+  color: #fff;
+}
+.result{
+  width: 100%;
+  background-color: #7baade;
+  border-radius: .5rem;
+  padding: 3%;
+  color: #fff;
+}
+.result-name{
+  font-size: 1.3rem;
+}
+.result__weather{
+  display: flex;
+  align-items: center;
+  width: fit-content;
+  margin: 0 auto;
+}
+.result__temp{
+  font-size: 1.6rem;
+}
