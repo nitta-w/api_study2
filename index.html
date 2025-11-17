@@ -15,18 +15,39 @@
 </head>
 <body>
 	<main>
-		<h1>今のお天気は？</h1>
+		<h1>あの日あの時<span>お天気LOG☁️</span></h1>
 
-		<div class="btn-area">
-			<button class="js-click-btn1">新田上空の天気がどうしても知りたい！</button>
+		<div class="day">
+			<div class="question">①いつの天気が知りたいのかな？</div>
+			<div>
+				<input type="date" name="select_day">
+			</div>
+		</div>
+
+		<div class="place">
+			<div class="question">②知りたい場所はどこかな？</div>
+			<ul>
+				<li><label for="select_place_ebisu"><input type="radio" name="select_place" id="select_place_ebisu" value="data3">恵比寿</label></li>
+				<li><label for="select_place_osaka"><input type="radio" name="select_place" id="select_place_osaka" value="data2">サポート本社</label></li>
+				<li><label for="select_place_nitta"><input type="radio" name="select_place" id="select_place_nitta" value="data1">新田上空</label></li>
+			</ul>
+		</div>
+
+		<div class="item">
+			<div class="question">③知りたい項目は何かな？（2つまでだよ）</div>
+			<ul>
+				<li><label for="select_item_temp"><input type="checkbox" name="select_item" id="select_item_temp" value="temp">気温</label></li>
+				<li><label for="select_item_humi"><input type="checkbox" name="select_item" id="select_item_humi" value="humi">湿度</label></li>
+				<li><label for="select_item_press"><input type="checkbox" name="select_item" id="select_item_press" value="press">気圧</label></li>
+			</ul>
 		</div>
 
 		<div class="btn-area">
-			<button class="js-click-btn2">恵比寿付近の天気がなんとしてでも知りたい！</button>
+			<button class="js-click-btn">結果を表示してね</button>
 		</div>
 
 		<div class="result">
-			<div class="js-result-name result-name">上のボタンをクリックしてね♪</div>
+			<div class="js-result-name result-name">結果はここに表示されるよ〜</div>
 			<div class="result__weather">
 				<div><img src=""  class="js-result-icon" alt=""></div>
 				<div class="js-result-temp result__temp"></div>
