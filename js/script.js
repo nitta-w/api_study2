@@ -1,5 +1,7 @@
 $(function(){
-	addEvent();
+	setDay();
+	// addEvent();
+	displayResult();
 
 	// イベント登録
 	function addEvent(){
@@ -51,22 +53,66 @@ $(function(){
 		}
 	}
 
+	// 
+	function setDay(){
+		
+
+	}
+
 	// データ表示
-	function displayResult(data){
-		// 名前
-		const $resultName = $('.js-result-name');
-		$resultName.text(`今の${data.name}の天気`);	
+	function displayResult(){
 
-		// 気温
-		const $resultTemp = $('.js-result-temp');
-		$resultTemp.text(`${data.main.temp}℃`);
+        let lineCtx = document.getElementById("chart");
+        // 線グラフの設定
+        let lineConfig = {
+          type: 'line',
+          data: {
+            // ※labelとデータの関係は得にありません
+            labels: ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12'],
+            datasets: [{
+              label: 'Red',
+              data: [20, 35, 40, 30, 45, 35, 40, 40, 30, 45, 35, 40, 40],
+              borderColor: '#f88',
+            }, {
+              label: 'Green',
+              data: [20, 15, 30, 25, 30, 40, 35, 40, 30, 45, 35, 40, 45],
+              borderColor: '#484',
+            }, {
+              label: 'Blue',
+              data: [1000, 2000, 1400, 2400, 2500, 2200, 2020, 1098, 2761, 1000, 2030, 2000, 2080],
+              borderColor: '#48f',
+            }],
+          },
+          options: {
+            scales: {
+              // Y軸の最大値・最小値、目盛りの範囲などを設定する
+              y: {
+                suggestedMin: 0,
+                suggestedMax: 60,
+                ticks: {
+                  stepSize: 20,
+                }
+              }
+            },
+          },
+        };
+        let lineChart = new Chart(lineCtx, lineConfig);
 
-		// 天気アイコン
-		const $resultIcon = $('.js-result-icon');
-		const iconCode = data.weather[0].icon;
-		const iconUrl = `https://openweathermap.org/img/wn/${iconCode}@2x.png`;
 
-		$resultIcon.attr('src', iconUrl);
+		// // 名前
+		// const $resultName = $('.js-result-name');
+		// $resultName.text(`今の${data.name}の天気`);	
+
+		// // 気温
+		// const $resultTemp = $('.js-result-temp');
+		// $resultTemp.text(`${data.main.temp}℃`);
+
+		// // 天気アイコン
+		// const $resultIcon = $('.js-result-icon');
+		// const iconCode = data.weather[0].icon;
+		// const iconUrl = `https://openweathermap.org/img/wn/${iconCode}@2x.png`;
+
+		// $resultIcon.attr('src', iconUrl);
 	}
 
 });

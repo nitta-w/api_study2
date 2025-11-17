@@ -221,10 +221,10 @@ button:hover{
 }
 .result{
   width: 100%;
-  background-color: #7baade;
+  border: 3px solid #7baade;
   border-radius: .5rem;
   padding: 3%;
-  color: #fff;
+  color: #7baade;
 }
 .result-name{
   font-size: 1.3rem;
