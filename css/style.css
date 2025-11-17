@@ -257,3 +257,7 @@ button:hover{
 .item ul li{
   margin-right: 1rem;
 }
+#chart{
+  width: 100% !important;
+  height: auto !important;
+}

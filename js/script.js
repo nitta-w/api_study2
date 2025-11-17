@@ -65,20 +65,20 @@ $(function(){
 
 	// データ表示
 	function displayResult(data){
-
+		// ライブラリ Chart.jsを使用
         let lineCtx = document.getElementById("chart");
         // 線グラフの設定
         let lineConfig = {
           type: 'line',
           data: {
-            labels: ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23'],
+			labels: [...Array(24).keys()], // labels: ['0', '1', '2', 〜 '23'],
             datasets: [{
-              label: 'Red',
-              data: [data[0].気温, data[1].気温, data[2].気温, data[3].気温, data[4].気温, data[5].気温, data[6].気温, data[7].気温, data[8].気温, data[9].気温, data[10].気温, data[11].気温, data[12].気温, data[13].気温, data[14].気温, data[15].気温, data[16].気温, data[17].気温, data[18].気温, data[19].気温, data[20].気温, data[21].気温, data[22].気温, data[23].気温,],
+              label: '気温',
+              data: data.map(d => d.気温), // data: [data[0].気温, data[1].気温, data[2].気温, 〜 data[23].気温,],
               borderColor: '#f88',
             }, {
-              label: 'Green',
-              data: [data[0].湿度, data[1].湿度, data[2].湿度, data[3].湿度, data[4].湿度, data[5].湿度, data[6].湿度, data[7].湿度, data[8].湿度, data[9].湿度, data[10].湿度, data[11].湿度, data[12].湿度, data[13].湿度, data[14].湿度, data[15].湿度, data[16].湿度, data[17].湿度, data[18].湿度, data[19].湿度, data[20].湿度, data[21].湿度, data[22].湿度, data[23].湿度,],
+              label: '湿度',
+              data: data.map(d => d.湿度), // data: [data[0].湿度, data[1].湿度, data[2].湿度, 〜 data[23].湿度,],
               borderColor: '#484',
             }],
           },
@@ -97,14 +97,6 @@ $(function(){
         };
         let lineChart = new Chart(lineCtx, lineConfig);
 
-
-		// // 名前
-		// const $resultName = $('.js-result-name');
-		// $resultName.text(`今の${data.name}の天気`);	
-
-		// // 気温
-		// const $resultTemp = $('.js-result-temp');
-		// $resultTemp.text(`${data.main.temp}℃`);
 
 		// // 天気アイコン
 		// const $resultIcon = $('.js-result-icon');
