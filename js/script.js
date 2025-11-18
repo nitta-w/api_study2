@@ -29,7 +29,11 @@ $(function(){
 			// }
 			if(!selectDay || !selectPlace){
 				alert('選択していないものがあるよ！');
+				return;
 			}
+
+			// .loader の表示
+			displayLoader();
 
 			console.log(selectDay, selectPlace, selectitem);
 
@@ -55,7 +59,7 @@ $(function(){
 			$('.js-result-text').text(placeName[selectPlace] + 'の天気');
 
 			// グラフの表示
-			if(lineChart){ // すでに一度表示済みの場合はクリアする
+			if(lineChart){ // すでに一度表示済みの場合はクリア
 				lineChart.destroy();
 			}
 			displayResult(jstData);
@@ -121,6 +125,9 @@ $(function(){
         
 		lineChart = new Chart(lineCtx, lineConfig);
 
+		// .loader の非表示
+		displayLoader();
+
 
 		// // 天気アイコン
 		// const $resultIcon = $('.js-result-icon');
@@ -128,6 +135,11 @@ $(function(){
 		// const iconUrl = `https://openweathermap.org/img/wn/${iconCode}@2x.png`;
 
 		// $resultIcon.attr('src', iconUrl);
+	}
+
+	// .loader の表示切り替え
+	function displayLoader(){
+		$('.loader').toggleClass('active');
 	}
 
 });
