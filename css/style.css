@@ -180,28 +180,7 @@ button:hover{
  * Layout（子ページ含めた共通のレイアウトスタイル）
  *
  ************************************************************************/
-.l-page-wrap {
-  width: 100%;
-	--base-width: 375; /* 基準幅 */
-  --max-width: 640; /* 最大幅 */
-  --base-font-size: 10; /* 基準フォントサイズ (10px) */
-  /* 最大横幅サイズ時の最大フォントサイズ */
-  --max-font-size: calc((var(--base-font-size) / var(--base-width)) * var(--max-width) * 1px);
-	/** 以下指定で、横幅が --base-width 時に 1rem が 10pxとなる */
-  font-size: min(calc((var(--base-font-size) / var(--base-width)) * 100vw), var(--max-font-size));
-  scroll-behavior: smooth;
-	font-family: 'Hiragino Kaku Gothic ProN', sans-serif;
-}
-.l-page-inner {
-  width: 100%;
-  max-width: var(--max-width) * 1px;
-  margin: 0 auto;
-}
-.l-page-inner-2 {
-  width: 100%;
-  max-width: 960px;
-  margin: 0 auto;
-}
+
 
 /************************************************************************
  *
@@ -217,6 +196,12 @@ button:hover{
 ************************************************************************/
 
 /* main */
+.title{
+  background-image: url(../img/title_img.png);
+  background-size: 2.6rem;
+  background-repeat: no-repeat;
+  background-position: 2.3rem -.1rem;
+}
 .question{
   margin: 2rem auto 1rem;
 }
