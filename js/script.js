@@ -1,4 +1,6 @@
 $(function(){
+	let lineChart = null;
+
 	setDay();
 	addEvent();
 
@@ -33,9 +35,30 @@ $(function(){
 
 			const data = await fetchData(selectDay, selectPlace, selectitem);
 
-			console.log(data);
+			// UTC → JST に変換（データ取得には関わらない 表示のみ調整）
+			const jstData = data.map(d => {
+				const date = new Date(d.取得日時);
+				return {
+					...d,
+					取得日時: date.toLocaleString('ja-JP', { timeZone: 'Asia/Tokyo' }) // JST 表示用
+				};
+			});
 
-			displayResult(data);
+			console.log(jstData);
+
+			// .js-result-text を地点名に変更
+			const placeName ={
+				data1 : '新田上空(新潟)',
+				data2 : '恵比寿',
+				data3 : 'サポート本社(大阪)'
+			}
+			$('.js-result-text').text(placeName[selectPlace] + 'の天気');
+
+			// グラフの表示
+			if(lineChart){ // すでに一度表示済みの場合はクリアする
+				lineChart.destroy();
+			}
+			displayResult(jstData);
 		})
 	}
 
@@ -63,10 +86,10 @@ $(function(){
 		$('#js-select-day').attr('max', today);
 	}
 
-	// データ表示
 	function displayResult(data){
 		// ライブラリ Chart.jsを使用
         let lineCtx = document.getElementById("chart");
+
         // 線グラフの設定
         let lineConfig = {
           type: 'line',
@@ -95,7 +118,8 @@ $(function(){
             },
           },
         };
-        let lineChart = new Chart(lineCtx, lineConfig);
+        
+		lineChart = new Chart(lineCtx, lineConfig);
 
 
 		// // 天気アイコン

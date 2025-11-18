@@ -16,7 +16,7 @@
 </head>
 <body>
 	<main>
-		<h1>あの日あの時<span>お天気LOG☁️</span></h1>
+		<h1>あの日あの時 <span>お天気LOG☁️</span></h1>
 
 		<div class="day">
 			<div class="question">①いつの天気が知りたいのかな？</div>
@@ -28,9 +28,9 @@
 		<div class="place">
 			<div class="question">②知りたい場所はどこかな？</div>
 			<ul>
+				<li><label for="select_place_nitta"><input type="radio" name="select_place" id="select_place_nitta" value="data1">新田上空(新潟)</label></li>
 				<li><label for="select_place_ebisu"><input type="radio" name="select_place" id="select_place_ebisu" value="data2">恵比寿</label></li>
 				<li><label for="select_place_osaka"><input type="radio" name="select_place" id="select_place_osaka" value="data3">サポート本社(大阪)</label></li>
-				<li><label for="select_place_nitta"><input type="radio" name="select_place" id="select_place_nitta" value="data1">新田上空（新潟）</label></li>
 			</ul>
 		</div>
 
@@ -48,13 +48,16 @@
 		</div>
 
 		<div class="result">
-			<div class="js-result-name result-name">結果はここに表示されるよ〜</div>
-			<div class="result__weather">
+			<div class="js-result-text result-text">結果はここに表示されるよ〜</div>
+				<div class="js-result-temp result__temp">
+					<canvas id="chart"></canvas>
+				</div>
+			<!-- <div class="result__weather">
 				<div><img src=""  class="js-result-icon" alt=""></div>
 				<div class="js-result-temp result__temp">
 					<canvas id="chart"></canvas>
 				</div>
-			</div>
+			</div> -->
 		</div>
 
 	</main>
