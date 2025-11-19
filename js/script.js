@@ -118,9 +118,9 @@ $(function(){
         let lineCtx = document.getElementById("chart");
 
 		// y軸の scales を生成
-		let scales = {};
+		let yAxisScales = {};
 		selectitem.forEach((key, index) => {
-			scales[chartMaster[key].yAxisID] = {
+			yAxisScales[chartMaster[key].yAxisID] = {
 				type: 'linear',
 				position: index === 0 ? 'left' : 'right',
 				suggestedMin : yMaster[key].min,
@@ -131,8 +131,6 @@ $(function(){
 			}
 		})
 
-		console.log(scales);
-
         // 線グラフの設定
         let lineConfig = {
           type: 'line',
@@ -141,7 +139,7 @@ $(function(){
             datasets: selectitem.map(key => chartMaster[key])
           },
           options: {
-            scales: scales
+            scales: yAxisScales
           }
         };
         
@@ -151,46 +149,6 @@ $(function(){
 		$('.loader').removeClass('active');
 
 	}
-	// function displayResult(data){
-	// 	// ライブラリ Chart.jsを使用
-    //     let lineCtx = document.getElementById("chart");
-
-    //     // 線グラフの設定
-    //     let lineConfig = {
-    //       type: 'line',
-    //       data: {
-	// 		labels: [...Array(24).keys()], // labels: ['0', '1', '2', 〜 '23'],
-    //         datasets: [{
-    //           label: '気温',
-    //           data: data.map(d => d.気温), // data: [data[0].気温, data[1].気温, data[2].気温, 〜 data[23].気温,],
-    //           borderColor: '#f88',
-    //         }, {
-    //           label: '湿度',
-    //           data: data.map(d => d.湿度), // data: [data[0].湿度, data[1].湿度, data[2].湿度, 〜 data[23].湿度,],
-    //           borderColor: '#484',
-    //         }],
-    //       },
-    //       options: {
-    //         scales: {
-    //           // Y軸の最大値・最小値、目盛りの範囲などを設定する
-    //           y: {
-    //             suggestedMin: 0,
-    //             suggestedMax: 100,
-    //             ticks: {
-    //               stepSize: 20,
-    //             }
-    //           }
-    //         },
-    //       },
-    //     };
-        
-	// 	lineChart = new Chart(lineCtx, lineConfig);
-
-	// 	// .loader の非表示
-	// 	$('.loader').removeClass('active');
-
-	// }
-
 
 });
 
