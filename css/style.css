@@ -145,6 +145,9 @@ main{
 .u-mb--5em {
   margin-bottom: 5em !important;
 }
+.u-color-red{
+  color: red;
+}
 
 /************************************************************************
  *
@@ -204,9 +207,6 @@ button:hover{
 }
 .question{
   margin: 2rem auto 1rem;
-}
-.question span{
-  color: red;
 }
 .place ul,
 .item ul{

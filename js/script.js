@@ -26,14 +26,15 @@ $(function(){
 			// バリデーション
 			if(!selectDay || !selectPlace || selectitem.length === 0){
 				alert('選択していないものがあるよ！');
+				return;
 			}
+
+			console.log(selectDay, selectPlace, selectitem);
 
 			// .loader の表示
 			$('.loader').addClass('active');
 
-			console.log(selectDay, selectPlace, selectitem);
-
-			const data = await fetchData(selectDay, selectPlace, selectitem);
+			const data = await fetchData(selectDay, selectPlace);
 
 			// UTC → JST に変換（データ取得には関わらない 表示のみ調整）
 			const jstData = data.map(d => {
@@ -58,12 +59,12 @@ $(function(){
 			if(lineChart){ // すでに一度表示済みの場合はクリア
 				lineChart.destroy();
 			}
-			displayResult(jstData);
+			displayResult(jstData, selectitem);
 		})
 	}
 
 	// GASからfetch
-	async function fetchData(selectDay, selectPlace, selectitem){
+	async function fetchData(selectDay, selectPlace){
 		const url = `https://script.google.com/macros/s/AKfycbyO4MNxRtbmTh0OZN7xaGTgrj4OQmdCHszR5SwMjPPCrzic1PeGmyB1JFviFo1WPqOQFg/exec?sheet=${selectPlace}&day=${selectDay}` ; // GAS側のデプロイでver変わったらURLの変更必須
 
 		try{
@@ -86,43 +87,113 @@ $(function(){
 		$('#js-select-day').attr('max', today);
 	}
 
-	function displayResult(data){
+
+	function displayResult(data, selectitem){
 		// ライブラリ Chart.jsを使用
+		const chartMaster = {
+			temp : {
+				label: '気温', 
+				data: data.map(d => d.気温), 
+				borderColor: '#f88',
+				yAxisID: 'y0'
+			},
+			humi : {
+				label: '湿度', 
+				data: data.map(d => d.湿度), 
+				borderColor: '#484',
+				yAxisID: 'y1'
+			},
+			press : {
+				label: '気圧', 
+				data: data.map(d => d.気圧), 
+				borderColor: '#7baade',
+				yAxisID: 'y2'
+			}
+		}
+		const yMaster = {
+			temp : { min: 0, max: 40, step: 10 },
+			humi : { min: 0, max: 100, step: 10 },
+			press : { min: 800, max: 1100, step: 100 }
+		};
         let lineCtx = document.getElementById("chart");
+
+		// y軸の scales を生成
+		let scales = {};
+		selectitem.forEach((key, index) => {
+			scales[chartMaster[key].yAxisID] = {
+				type: 'linear',
+				position: index === 0 ? 'left' : 'right',
+				suggestedMin : yMaster[key].min,
+				suggestedMax : yMaster[key].max,
+				ticks : {
+					stepSize : yMaster[key].step,
+				}
+			}
+		})
+
+		console.log(scales);
 
         // 線グラフの設定
         let lineConfig = {
           type: 'line',
           data: {
 			labels: [...Array(24).keys()], // labels: ['0', '1', '2', 〜 '23'],
-            datasets: [{
-              label: '気温',
-              data: data.map(d => d.気温), // data: [data[0].気温, data[1].気温, data[2].気温, 〜 data[23].気温,],
-              borderColor: '#f88',
-            }, {
-              label: '湿度',
-              data: data.map(d => d.湿度), // data: [data[0].湿度, data[1].湿度, data[2].湿度, 〜 data[23].湿度,],
-              borderColor: '#484',
-            }],
+            datasets: selectitem.map(key => chartMaster[key])
           },
           options: {
-            scales: {
-              // Y軸の最大値・最小値、目盛りの範囲などを設定する
-              y: {
-                suggestedMin: 0,
-                suggestedMax: 100,
-                ticks: {
-                  stepSize: 20,
-                }
-              }
-            },
-          },
+            scales: scales
+          }
         };
         
 		lineChart = new Chart(lineCtx, lineConfig);
 
 		// .loader の非表示
 		$('.loader').removeClass('active');
+
+	}
+	// function displayResult(data){
+	// 	// ライブラリ Chart.jsを使用
+    //     let lineCtx = document.getElementById("chart");
+
+    //     // 線グラフの設定
+    //     let lineConfig = {
+    //       type: 'line',
+    //       data: {
+	// 		labels: [...Array(24).keys()], // labels: ['0', '1', '2', 〜 '23'],
+    //         datasets: [{
+    //           label: '気温',
+    //           data: data.map(d => d.気温), // data: [data[0].気温, data[1].気温, data[2].気温, 〜 data[23].気温,],
+    //           borderColor: '#f88',
+    //         }, {
+    //           label: '湿度',
+    //           data: data.map(d => d.湿度), // data: [data[0].湿度, data[1].湿度, data[2].湿度, 〜 data[23].湿度,],
+    //           borderColor: '#484',
+    //         }],
+    //       },
+    //       options: {
+    //         scales: {
+    //           // Y軸の最大値・最小値、目盛りの範囲などを設定する
+    //           y: {
+    //             suggestedMin: 0,
+    //             suggestedMax: 100,
+    //             ticks: {
+    //               stepSize: 20,
+    //             }
+    //           }
+    //         },
+    //       },
+    //     };
+        
+	// 	lineChart = new Chart(lineCtx, lineConfig);
+
+	// 	// .loader の非表示
+	// 	$('.loader').removeClass('active');
+
+	// }
+
+
+});
+
 
 
 		// // 天気アイコン
@@ -131,6 +202,3 @@ $(function(){
 		// const iconUrl = `https://openweathermap.org/img/wn/${iconCode}@2x.png`;
 
 		// $resultIcon.attr('src', iconUrl);
-	}
-
-});
