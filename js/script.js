@@ -59,7 +59,10 @@ $(function(){
 			if(lineChart){ // すでに一度表示済みの場合はクリア
 				lineChart.destroy();
 			}
-			displayResult(jstData, selectitem);
+			displayChart(jstData, selectitem);
+
+			// 天気iconの表示
+			displayIcon(jstData);
 		})
 	}
 
@@ -88,7 +91,7 @@ $(function(){
 	}
 
 
-	function displayResult(data, selectitem){
+	function displayChart(data, selectitem){
 		// ライブラリ Chart.jsを使用
 		const chartMaster = {
 			temp : {
@@ -150,12 +153,32 @@ $(function(){
 
 	}
 
+	function displayIcon(jstData){
+		const $resultIcon = $('.js-result-icon');
+		const hours = [0, 6, 12, 18, 23];
+
+		let html = '';
+
+		hours.forEach(h => {
+			const item = jstData[h];
+			if(!item) return; // データがなかったらスキップ
+
+			const iconCode = jstData[h].天気コード;
+			const iconUrl = `https://openweathermap.org/img/wn/${iconCode}@2x.png`;
+
+			html += `<div class="result__icon-item"><img src="${iconUrl}"></div>`;
+
+		});
+
+		$resultIcon.html(html);
+
+
+	}
+
 });
 
 
 
-		// // 天気アイコン
-		// const $resultIcon = $('.js-result-icon');
 		// const iconCode = data.weather[0].icon;
 		// const iconUrl = `https://openweathermap.org/img/wn/${iconCode}@2x.png`;
 

@@ -245,6 +245,12 @@ button:hover{
 .result__temp{
   font-size: 1.6rem;
 }
+.result__icon{
+  display: flex;
+}
+.result__icon-item{
+  width: 20%;
+}
 
 /* .loader */
 .loader {
